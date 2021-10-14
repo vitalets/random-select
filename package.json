@@ -1,7 +1,7 @@
 {
   "name": "@vitalets/random-select",
   "description": "Select random items from list without repeats",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "dist/index.js",
   "files": [
     "src",
