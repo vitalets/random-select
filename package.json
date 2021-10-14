@@ -1,7 +1,7 @@
 {
   "name": "random-select",
   "description": "Select random items from list without repeats",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "files": [
     "src",
