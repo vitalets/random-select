@@ -1,5 +1,5 @@
 {
-  "name": "random-select",
+  "name": "@vitalets/random-select",
   "description": "Select random items from list without repeats",
   "version": "0.1.1",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
     "lint": "eslint src test --ext .ts",
     "test": "mocha -r ts-node/register test/setup.ts test/specs/*.ts",
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
-    "release": "npm run lint && npm t && npm run build && npm version $VER && npm publish && git push --follow-tags --no-verify",
+    "release": "npm run lint && npm t && npm run build && npm version $VER && npm publish --access=public && git push --follow-tags --no-verify",
     "release-patch": "VER=patch npm run release",
     "release-minor": "VER=minor npm run release"
   },

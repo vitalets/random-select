@@ -3,12 +3,12 @@ Select random items from list without repeats.
 
 ## Installation
 ```
-npm i random-select
+npm i @vitalets/random-select
 ```
 
 ## Usage
 ```ts
-import { RandomSelect } from 'random-select';
+import { RandomSelect } from '@vitalets/random-select';
 
 const rs = new RandomSelect();
 
