@@ -1,6 +1,11 @@
 # random-select
 Select random items from list without repeats.
 
+## Installation
+```
+npm i random-select
+```
+
 ## Usage
 ```ts
 import { RandomSelect } from 'random-select';
