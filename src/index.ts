@@ -31,9 +31,11 @@ export interface SelectOptions {
 }
 
 export class RandomSelect {
+  state: RandomSelectState;
   options: Required<RandomSelectOptions>;
 
-  constructor(public state: RandomSelectState = {}, options: RandomSelectOptions = {}) {
+  constructor(state: RandomSelectState = {}, options: RandomSelectOptions = {}) {
+    this.state = state || {};
     this.options = Object.assign({}, defaults, options);
   }
 
