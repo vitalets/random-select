@@ -66,5 +66,11 @@ describe('select', () => {
     assert.deepEqual(rs.state, { '0|1|2|3|4': [ 4, items.indexOf(item) ] });
   });
 
+  it('custom key', async () => {
+    const rs = new RandomSelect();
+    const items = [ 1, 2, 3 ];
+    const item = rs.select(items, { key: 'foo' });
+    assert.deepEqual(rs.state, { 'foo': [ items.indexOf(item) ] });
+  });
 });
 

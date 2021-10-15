@@ -21,6 +21,10 @@ const defaults = {
   disableRandom: false,
 };
 
+export interface SelectOptions {
+  key?: string;
+}
+
 export class RandomSelect {
   options: Required<RandomSelectOptions>;
 
@@ -28,9 +32,9 @@ export class RandomSelect {
     this.options = Object.assign({}, defaults, options);
   }
 
-  select<T>(items: T[]) {
+  select<T>(items: T[], options: SelectOptions = {}) {
     if (items.length <= 1) return items[0];
-    const key = this.getKey(items);
+    const key = options.key || this.getKey(items);
     const indexes = items.map((_, index) => index);
     const usedIndexes = this.getUsedIndexes(key, indexes);
     const allowedIndexes = this.getAllowedIndexes(usedIndexes, indexes, items);
