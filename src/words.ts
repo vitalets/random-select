@@ -14,7 +14,7 @@ export function getCommonWords(words1: string[], words2: string[], minLength = 4
   return commonWords;
 }
 
-function getCommonPrefix(s1: string, s2: string) {
+export function getCommonPrefix(s1: string, s2: string) {
   const l = Math.min(s1.length, s2.length);
   let i = 0;
   while (i < l && s1.charAt(i) === s2.charAt(i)) i++;

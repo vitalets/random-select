@@ -72,5 +72,12 @@ describe('select', () => {
     const item = rs.select(items, { key: 'foo' });
     assert.deepEqual(rs.state, { 'foo': [ items.indexOf(item) ] });
   });
+
+  it('exclude common prefix when calculating key', async () => {
+    const rs = new RandomSelect();
+    const items = [ 1, 2, 3 ].map(v => `${'a'.repeat(15)}_${v}`);
+    const item = rs.select(items);
+    assert.deepEqual(rs.state, { 'aaaaaaaaaa|2|3': [ items.indexOf(item) ] });
+  });
 });
 

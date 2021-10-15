@@ -1,5 +1,5 @@
 import { allStrings, getRandomElement, groupBy } from './utils';
-import { getCommonWords, getLongWords } from './words';
+import { getCommonWords, getLongWords, getCommonPrefix } from './words';
 
 export type RandomSelectState = Record<string, number[]>;
 
@@ -11,6 +11,10 @@ export interface RandomSelectOptions {
    */
   commonWordsMinLength?: number;
   /**
+   * Length of item substring used for key generation.
+   */
+  keyItemLength?: number;
+  /**
    * Disable random for testing purposes.
    */
   disableRandom?: boolean;
@@ -18,6 +22,7 @@ export interface RandomSelectOptions {
 
 const defaults = {
   commonWordsMinLength: 4,
+  keyItemLength: 10,
   disableRandom: false,
 };
 
@@ -47,7 +52,12 @@ export class RandomSelect {
   private getKey(items: unknown[]) {
     return items
       .map(item => typeof item === 'string' ? item : JSON.stringify(item))
-      .map(item => item.substr(0, 15))
+      .sort()
+      .map((item, i, arr) => {
+        // exclude common prefix from item strings
+        const startIndex = i === 0 ? 0 : getCommonPrefix(item, arr[i - 1]).length;
+        return item.substr(startIndex, this.options.keyItemLength);
+      })
       .join('|');
   }
 
