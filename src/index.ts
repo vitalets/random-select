@@ -7,8 +7,9 @@ export interface RandomSelectOptions {
   /**
    * When selecting next item lib can calc common words with last used value,
    * and select item having minimal common words.
+   * This option sets minimal length of word to consider "common".
    */
-  useMostDifferentValues?: boolean;
+  commonWordsMinLength?: number;
   /**
    * Disable random for testing purposes.
    */
@@ -16,7 +17,7 @@ export interface RandomSelectOptions {
 }
 
 const defaults = {
-  useMostDifferentValues: true,
+  commonWordsMinLength: 4,
   disableRandom: false,
 };
 
@@ -55,20 +56,21 @@ export class RandomSelect {
 
   private getAllowedIndexes(usedIndexes: number[], indexes: number[], items: unknown[]) {
     const allowedIndexes = indexes.filter(index => !usedIndexes.includes(index));
-    return (this.options.useMostDifferentValues && usedIndexes.length >= 1 && allStrings(items))
-      ? this.getMostDifferentIndexes(usedIndexes, allowedIndexes, items)
+    return (this.options.commonWordsMinLength && usedIndexes.length >= 1 && allStrings(items))
+      ? this.getAllowedIndexesByCommonWords(usedIndexes, allowedIndexes, items)
       : allowedIndexes;
   }
 
-  private getMostDifferentIndexes(usedIndexes: number[], allowedIndexes: number[], items: string[]) {
+  private getAllowedIndexesByCommonWords(usedIndexes: number[], allowedIndexes: number[], items: string[]) {
     const lastValue = items[usedIndexes[usedIndexes.length - 1]];
     const lastWords = getLongWords(lastValue);
-    const commonWordCountsMap = groupBy(allowedIndexes, index => {
+    // map: (common words count) -> (indexes)
+    const commonWordsMap = groupBy(allowedIndexes, index => {
       const itemWords = getLongWords(items[index]);
       return getCommonWords(lastWords, itemWords).length;
     });
-    const counts = Object.keys(commonWordCountsMap).map(Number);
+    const counts = Object.keys(commonWordsMap).map(Number);
     const minCommonWordsCount = Math.min(...counts);
-    return commonWordCountsMap[minCommonWordsCount];
+    return commonWordsMap[minCommonWordsCount];
   }
 }
