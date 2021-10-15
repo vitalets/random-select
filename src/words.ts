@@ -2,22 +2,23 @@
  * Words utilities
  */
 
-export function getCommonWordsCount(words1: string[], words2: string[], minCommonChars = 4) {
-  let count = 0;
+export function getCommonWords(words1: string[], words2: string[], minLength = 4) {
+  const commonWords = [];
   for (const word1 of words1) {
     for (const word2 of words2) {
-      const commonCharsCount = getCommonCharsCount(word1, word2);
-      if (commonCharsCount >= minCommonChars) count++; // eslint-disable-line max-depth
+      const commonPrefix = getCommonPrefix(word1, word2);
+      // eslint-disable-next-line max-depth
+      if (commonPrefix.length >= minLength) commonWords.push(commonPrefix);
     }
   }
-  return count;
+  return commonWords;
 }
 
-function getCommonCharsCount(word1: string, word2: string) {
-  const l = Math.min(word1.length, word2.length);
+function getCommonPrefix(s1: string, s2: string) {
+  const l = Math.min(s1.length, s2.length);
   let i = 0;
-  while (i < l && word1.charAt(i) === word2.charAt(i)) i++;
-  return i;
+  while (i < l && s1.charAt(i) === s2.charAt(i)) i++;
+  return s1.substr(0, i);
 }
 
 export function getWords(str: string) {

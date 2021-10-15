@@ -1,5 +1,5 @@
 import { allStrings, getRandomElement, groupBy } from './utils';
-import { getCommonWordsCount, getLongWords } from './words';
+import { getCommonWords, getLongWords } from './words';
 
 export type RandomSelectState = Record<string, number[]>;
 
@@ -63,8 +63,10 @@ export class RandomSelect {
   private getMostDifferentIndexes(usedIndexes: number[], allowedIndexes: number[], items: string[]) {
     const lastValue = items[usedIndexes[usedIndexes.length - 1]];
     const lastWords = getLongWords(lastValue);
-    const getCommonWordsWithLastValue = (index: number) => getCommonWordsCount(lastWords, getLongWords(items[index]));
-    const commonWordCountsMap = groupBy(allowedIndexes, getCommonWordsWithLastValue);
+    const commonWordCountsMap = groupBy(allowedIndexes, index => {
+      const itemWords = getLongWords(items[index]);
+      return getCommonWords(lastWords, itemWords).length;
+    });
     const counts = Object.keys(commonWordCountsMap).map(Number);
     const minCommonWordsCount = Math.min(...counts);
     return commonWordCountsMap[minCommonWordsCount];
