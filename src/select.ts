@@ -31,7 +31,7 @@ export class RandomSelect {
 
   private getKey(items: unknown[]) {
     return items
-      .map(item => typeof item === 'string' ? item : JSON.stringify(item))
+      .map(item => typeof item === 'string' ? item : JSON.stringify(item).replace(/"/g, ''))
       .sort()
       .map((item, i, arr) => {
         // exclude common prefix from item strings

@@ -36,7 +36,7 @@ describe('select', () => {
       const calls = [
         select(),
         select(),
-      ].map(w => w.substr(0, 4)).sort();
+      ].map(w => w.substring(0, 4)).sort();
       assert.deepEqual(calls, [
         'добр',
         'прив',
@@ -46,9 +46,9 @@ describe('select', () => {
 
   it('save state', async () => {
     const rs = new RandomSelect();
-    const items = [ 1, 2, 3 ];
+    const items = [ 1, 2, 3, { foo: 42 } ];
     const item = rs.select(items);
-    assert.deepEqual(rs.state, { '1|2|3': [ items.indexOf(item) ] });
+    assert.deepEqual(rs.state, { '1|2|3|{foo:42}': [ items.indexOf(item) ] });
   });
 
   it('use state', async () => {
