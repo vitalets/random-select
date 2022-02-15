@@ -75,7 +75,8 @@ describe('select', () => {
 
   it('exclude common prefix when calculating key', async () => {
     const rs = new RandomSelect();
-    const items = [ 1, 2, 3 ].map(v => `${'a'.repeat(15)}_${v}`);
+    const prefix = 'a'.repeat(15);
+    const items = [ `${prefix}_1`, `${prefix}_2`, `${prefix}_3` ];
     const item = rs.select(items);
     assert.deepEqual(rs.state, { 'aaaaaaaaaa|2|3': [ items.indexOf(item) ] });
   });
