@@ -18,7 +18,7 @@ export function getCommonPrefix(s1: string, s2: string) {
   const l = Math.min(s1.length, s2.length);
   let i = 0;
   while (i < l && s1.charAt(i) === s2.charAt(i)) i++;
-  return s1.substr(0, i);
+  return s1.substring(0, i);
 }
 
 export function getWords(str: string) {

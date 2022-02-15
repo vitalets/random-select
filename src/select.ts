@@ -36,7 +36,7 @@ export class RandomSelect {
       .map((item, i, arr) => {
         // exclude common prefix from item strings
         const startIndex = i === 0 ? 0 : getCommonPrefix(item, arr[i - 1]).length;
-        return item.substr(startIndex, this.options.keyItemLength);
+        return item.substring(startIndex, startIndex + this.options.keyItemLength);
       })
       .join('|');
   }
