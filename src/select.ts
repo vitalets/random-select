@@ -1,5 +1,5 @@
-import { allStrings, getRandomElement, groupBy } from './utils';
-import { getCommonWords, getLongWords, getCommonPrefix } from './words';
+import { allStrings, getRandomElement, groupBy, getCommonPrefix } from './utils';
+import { getCommonWords, getLongWords } from './words';
 import { RandomSelectOptions, defaults } from './options';
 
 export type RandomSelectState = Record<string, number[]>;

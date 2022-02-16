@@ -13,3 +13,10 @@ export function groupBy<T>(items: T[], fn: (item: T) => string | number) {
     return acc;
   }, {} as Record<string, T[]>);
 }
+
+export function getCommonPrefix(s1: string, s2: string) {
+  const l = Math.min(s1.length, s2.length);
+  let i = 0;
+  while (i < l && s1.charAt(i) === s2.charAt(i)) i++;
+  return s1.substring(0, i);
+}
