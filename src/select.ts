@@ -9,12 +9,13 @@ export interface SelectOptions {
 }
 
 export class RandomSelect {
+  static defaults = defaults;
   state: RandomSelectState;
   options: Required<RandomSelectOptions>;
 
   constructor(state: RandomSelectState = {}, options: RandomSelectOptions = {}) {
     this.state = state || {};
-    this.options = Object.assign({}, defaults, options);
+    this.options = Object.assign({}, RandomSelect.defaults, options);
   }
 
   select<T>(items: T[], options: SelectOptions = {}) {
@@ -31,7 +32,11 @@ export class RandomSelect {
 
   private getKey(items: unknown[]) {
     return items
-      .map(item => typeof item === 'string' ? item : JSON.stringify(item).replace(/"/g, ''))
+      .map(item => {
+        return typeof item === 'string'
+          ? item
+          : JSON.stringify(item).replace(/"/g, '');
+      })
       .sort()
       .map((item, i, arr) => {
         // exclude common prefix from item strings

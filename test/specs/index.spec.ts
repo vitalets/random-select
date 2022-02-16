@@ -80,5 +80,13 @@ describe('select', () => {
     const item = rs.select(items);
     assert.deepEqual(rs.state, { 'aaaaaaaaaa|2|3': [ items.indexOf(item) ] });
   });
+
+  it('disableRandom: true', async () => {
+    const rs = new RandomSelect();
+    rs.options.disableRandom = true;
+    const items = [ 'y', 'x', 'z'];
+    const res = [ rs.select(items), rs.select(items), rs.select(items) ];
+    assert.deepEqual(res.join(','), 'y,y,y');
+  });
 });
 
